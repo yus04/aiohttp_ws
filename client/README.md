@@ -15,7 +15,7 @@ docker build -t websocket-client .
 
 コンテナの実行
 ```
-docker run websocket-client --host-ip $(hostname -I | awk '{print $1}')
+docker run websocket-client --address $(hostname -I | awk '{print $1}')
 ```
 
 ローカルで実行するための Client 側の手順は以上です。
@@ -65,7 +65,7 @@ docker push <Azure Container Registry 名>.azurecr.io/websocket-client:latest
 
 Azure Container Apps の作成とコンテナのデプロイ
 ```
-az containerapp create --name <Azure Container Apps 名> --resource-group <リソースグループ名> --args="--address=<Azure Container Apps にデプロイされている Server のドメイン名>:80" --environment '<Azure Container Apps 名>-2-env' --image <Azure Container Registry 名>.azurecr.io/websocket-client:latest --ingress external --min-replicas 1 --registry-server <Azure Container Registry 名>.azurecr.io --registry-username <ユーザー名> --registry-password <パスワード名>
+az containerapp create --name <Azure Container Apps 名> --resource-group <リソースグループ名> --args="--address=<Azure Container Apps にデプロイされている Server のドメイン名>:80" --environment '<Azure Container Apps 名>-env' --image <Azure Container Registry 名>.azurecr.io/websocket-client:latest --ingress external --min-replicas 1 --registry-server <Azure Container Registry 名>.azurecr.io --registry-username <ユーザー名> --registry-password <パスワード名>
 ```
 
 ### 補足
